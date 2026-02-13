@@ -233,4 +233,131 @@
   <main class="container">
     <section class="hero">
       <h1>happy valentines day diya</h1>
-      <p class="subtitle
+      <p class="subtitle">our moments, on loop forever 💜</p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Our Memories</h2>
+        <div class="memory-frame">
+          <img id="memoryImage" src="Photos/1.jpeg" alt="Memory photo" />
+          <span id="memoryCount" class="memory-count">1 / 10</span>
+        </div>
+        <p class="label">Cycling through our 10 memories.</p>
+      </article>
+
+      <article class="card">
+        <h2>Secret Message Lock 🔐</h2>
+        <p>Enter the date code (MMDD).</p>
+        <input id="code" type="password" maxlength="4" placeholder="0214" />
+        <button id="unlockBtn">Unlock</button>
+        <p class="lock-text" id="lockText">Hint: Valentine's Day.</p>
+      </article>
+
+      <article class="card" style="grid-column: 1 / -1;">
+        <h2>Our Constellation 🌌</h2>
+        <div id="constellation" class="constellation"></div>
+      </article>
+    </section>
+
+    <p class="footer">made with love.</p>
+  </main>
+
+  <script>
+    /* UPDATED: Path matches your capital 'Photos' folder and '.jpeg' extension */
+    const photos = Array.from({ length: 10 }, (_, i) => `Photos/${i + 1}.jpeg`);
+    const memoryImage = document.getElementById("memoryImage");
+    const memoryCount = document.getElementById("memoryCount");
+    let photoIndex = 0;
+
+    function showPhoto(index) {
+      memoryImage.style.opacity = "0";
+      setTimeout(() => {
+        memoryImage.src = photos[index];
+        memoryCount.textContent = `${index + 1} / ${photos.length}`;
+        memoryImage.style.opacity = "1";
+      }, 220);
+    }
+
+    // Set initial photo
+    document.addEventListener("DOMContentLoaded", () => {
+      memoryImage.src = "Photos/1.jpeg";
+    });
+
+    setInterval(() => {
+      photoIndex = (photoIndex + 1) % photos.length;
+      showPhoto(photoIndex);
+    }, 2600);
+
+    document.getElementById("unlockBtn").addEventListener("click", () => {
+      const code = document.getElementById("code").value;
+      const lockText = document.getElementById("lockText");
+      if (code === "0214") {
+        lockText.textContent = "Unlocked: I'd choose your hand in mine in every timeline. 💞";
+      } else {
+        lockText.textContent = "Not quite — try the date for the day of love.";
+      }
+    });
+
+    function createStarField() {
+      const stars = document.getElementById("stars");
+      for (let i = 0; i < 110; i++) {
+        const dot = document.createElement("span");
+        dot.className = "star";
+        dot.style.left = `${Math.random() * 100}vw`;
+        dot.style.top = `${Math.random() * 100}vh`;
+        dot.style.transform = `scale(${(Math.random() * .8 + .45).toFixed(2)})`;
+        dot.style.animationDelay = `${(Math.random() * 3).toFixed(2)}s`;
+        stars.appendChild(dot);
+      }
+    }
+
+    function buildConstellation() {
+      const points = [[16,66], [25,44], [38,31], [53,35], [66,49], [57,69], [39,78], [24,74]];
+      const el = document.getElementById("constellation");
+
+      points.forEach(([x, y], i) => {
+        const star = document.createElement("span");
+        star.className = "star";
+        star.style.left = `${x}%`;
+        star.style.top = `${y}%`;
+        star.style.animationDelay = `${i * .25}s`;
+        el.appendChild(star);
+
+        if (i > 0) {
+          const [px, py] = points[i - 1];
+          const dx = x - px;
+          const dy = y - py;
+          const len = Math.hypot(dx, dy);
+          const ang = Math.atan2(dy, dx) * 180 / Math.PI;
+
+          const line = document.createElement("div");
+          line.className = "line";
+          line.style.left = `${px}%`;
+          line.style.top = `${py}%`;
+          line.style.width = `${len}%`;
+          line.style.transform = `rotate(${ang}deg)`;
+          el.appendChild(line);
+        }
+      });
+    }
+
+    function dropPetal() {
+      const layer = document.getElementById("petals");
+      const p = document.createElement("span");
+      p.className = "petal";
+      p.textContent = ["✦", "❀", "·"][Math.floor(Math.random() * 3)];
+      p.style.left = `${Math.random() * 100}%`;
+      p.style.setProperty("--x", `${(Math.random() - .5) * 120}px`);
+      p.style.animationDuration = `${6 + Math.random() * 5}s`;
+      p.style.fontSize = `${.65 + Math.random() * .7}rem`;
+      layer.appendChild(p);
+      setTimeout(() => p.remove(), 12000);
+    }
+
+    createStarField();
+    buildConstellation();
+    setInterval(dropPetal, 500);
+  </script>
+</body>
+</html>
