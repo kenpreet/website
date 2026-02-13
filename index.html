@@ -265,20 +265,20 @@
 
   <script>
     /* UPDATED TO 10 PHOTOS AND .jpeg EXTENSION */
+   // Corrected to match your folder name "Photos" and extension ".jpeg"
     const photos = Array.from({ length: 10 }, (_, i) => `Photos/${i + 1}.jpeg`);
-const memoryImage = document.getElementById("memoryImage");
-const memoryCount = document.getElementById("memoryCount");
-let photoIndex = 0;
+    const memoryImage = document.getElementById("memoryImage");
+    const memoryCount = document.getElementById("memoryCount");
+    let photoIndex = 0;
 
-function showPhoto(index) {
-  memoryImage.style.opacity = "0";
-  setTimeout(() => {
-    // We point to the Photos folder with a Capital P
-    memoryImage.src = photos[index];
-    memoryCount.textContent = `${index + 1} / ${photos.length}`;
-    memoryImage.style.opacity = "1";
-  }, 220);
-}}
+    function showPhoto(index) {
+      memoryImage.style.opacity = "0";
+      setTimeout(() => {
+        memoryImage.src = photos[index];
+        memoryCount.textContent = `${index + 1} / ${photos.length}`;
+        memoryImage.style.opacity = "1";
+      }, 220);
+    }
 
     document.addEventListener("DOMContentLoaded", () => {
     memoryImage.src = "Photos/1.jpeg";
@@ -362,3 +362,4 @@ function showPhoto(index) {
 </body>
 
 </html>
+
