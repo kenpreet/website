@@ -265,22 +265,24 @@
 
   <script>
     /* UPDATED TO 10 PHOTOS AND .jpeg EXTENSION */
-    const photos = Array.from({ length: 10 }, (_, i) => `Photos/${i + 1}.jpeg`);    const memoryImage = document.getElementById("memoryImage");
-    const memoryCount = document.getElementById("memoryCount");
-    let photoIndex = 0;
+    const photos = Array.from({ length: 10 }, (_, i) => `Photos/${i + 1}.jpeg`);
+const memoryImage = document.getElementById("memoryImage");
+const memoryCount = document.getElementById("memoryCount");
+let photoIndex = 0;
 
-    function showPhoto(index) {
-      memoryImage.style.opacity = "0";
-      setTimeout(() => {
-        memoryImage.src = photos[index];
-        memoryCount.textContent = `${index + 1} / ${photos.length}`;
-        memoryImage.style.opacity = "1";
-      }, 220);
-    }
+function showPhoto(index) {
+  memoryImage.style.opacity = "0";
+  setTimeout(() => {
+    // We point to the Photos folder with a Capital P
+    memoryImage.src = photos[index];
+    memoryCount.textContent = `${index + 1} / ${photos.length}`;
+    memoryImage.style.opacity = "1";
+  }, 220);
+}}
 
-    memoryImage.addEventListener("error", () => {
-      memoryImage.alt = "Error loading photo. Check if photos are in /photos/ folder and named 1.jpeg to 10.jpeg";
-    });
+    document.addEventListener("DOMContentLoaded", () => {
+    memoryImage.src = "Photos/1.jpeg";
+});
 
     setInterval(() => {
       photoIndex = (photoIndex + 1) % photos.length;
@@ -358,4 +360,5 @@
     setInterval(dropPetal, 500);
   </script>
 </body>
+
 </html>
