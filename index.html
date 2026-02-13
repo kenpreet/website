@@ -240,10 +240,10 @@
       <article class="card">
         <h2>Our Memories</h2>
         <div class="memory-frame">
-          <img id="memoryImage" src="photos/1.jpg" alt="Memory photo" />
-          <span id="memoryCount" class="memory-count">1 / 11</span>
+          <img id="memoryImage" src="Photos/1.jpeg" alt="Memory photo" />
+          <span id="memoryCount" class="memory-count">1 / 10</span>
         </div>
-        <p class="label">Cycling all 11 photos continuously.</p>
+        <p class="label">Cycling through our 10 memories.</p>
       </article>
 
       <article class="card">
@@ -264,7 +264,8 @@
   </main>
 
   <script>
-    const photos = Array.from({ length: 11 }, (_, i) => `photos/${i + 1}.jpg`);
+    // Corrected to match your folder name "Photos" and extension ".jpeg"
+    const photos = Array.from({ length: 10 }, (_, i) => `Photos/${i + 1}.jpeg`);
     const memoryImage = document.getElementById("memoryImage");
     const memoryCount = document.getElementById("memoryCount");
     let photoIndex = 0;
@@ -278,8 +279,11 @@
       }, 220);
     }
 
-    memoryImage.addEventListener("error", () => {
-      memoryImage.alt = "Photo missing. Add images in /photos as 1.jpg to 11.jpg";
+    // Load first photo on start
+    document.addEventListener("DOMContentLoaded", () => {
+      memoryImage.src = "Photos/1.jpeg";
+      createStarField();
+      buildConstellation();
     });
 
     setInterval(() => {
@@ -353,8 +357,6 @@
       setTimeout(() => p.remove(), 12000);
     }
 
-    createStarField();
-    buildConstellation();
     setInterval(dropPetal, 500);
   </script>
 </body>
